@@ -18,11 +18,11 @@
 
 	</head>
 
- <body class="tmx-background-muted uk-height-viewport">
-		<main id="jsmx-liveMain">
+ <body class="tmxrt">
+		<main id="jsmin">
 			
-	<div class="uk-section uk-flex uk-flex-middle uk-height-viewport uk-responsive-height" style="background-color: #ededed;">
-		<div class="uk-condle" id="jsmx-containerMain" style="margin-top: 80px;">
+	<div class="uk-set" style="background-color: #ededed;">
+		<div class="uk-condle" id="jsmx-containerMain">
             <div id="jsmx-containerIcon" class="uk-height-1-1 uk-animation-fade uk-animation-reverse uk-hidden">
                 <svg class="tmx-checkmark tmx-check" style="width: 256px; height: 256px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                     <circle class="tmx-checkmark-circle tmx-check" cx="26" cy="26" r="25" fill="none"></circle>
@@ -57,7 +57,7 @@
 
                                             <div class="uk-width-expand  uk-flex uk-flex-middle uk-flex-center">
                                                 <div class="uk-width-1-1 uk-text-primary uk-text-bold uk-alert" style="color: #39a53d !important;">  
-                                                <p>O documento consultado é válido</p>
+                                                <p>O documento consultado é válido <br> Registro: 2673</p>
 
 
                                                                                                             <div class="uk-text-center">
@@ -75,6 +75,7 @@
                                         <div class="uk-width-2-5@s uk-width-1-1 uk-text-bold uk-first-column">Aluno(a):</div>
                                         <div class="uk-width-3-5@s uk-width-1-1">Mariana Regina de Souza Medeiros</div>
                                     </div>
+					
 
                                     <div class="uk-grid-collapse uk-margin-small uk-grid" uk-grid="">
                                         <div class="uk-width-2-5@s uk-width-1-1 uk-text-bold uk-first-column">CPF:</div>
@@ -104,7 +105,7 @@
 
                                     <div class="uk-grid-collapse uk-margin-small uk-grid" uk-grid="">
                                         <div class="uk-width-2-5@s uk-width-1-1 uk-text-bold uk-first-column">Data de Conclusão:</div>
-                                        <div class="uk-width-3-5@s uk-width-1-1"><span id="jsmx-conclusionDate">29/03/2023</span></div>
+                                        <div class="uk-width-3-5@s uk-width-1-1"><span id="jsmx-conclusionDate">03/09/2023</span></div>
                                     </div>
 
                                     
@@ -123,86 +124,10 @@
 		</div>
 	</div>
 
-    <script>
-        const success = true,
-              containerMain  =  document.querySelector('#jsmx-containerMain'),
-              containerIcon   = document.querySelector('#jsmx-containerIcon'),
-              containerResult = document.querySelector('#jsmx-containerResult'),
-              containerStudentData = containerMain.querySelector('#jsmx-containerStudentData'),
-              cross = `
-                <svg class="tmx-checkmark tmx-cross"  style="width: 256px; height: 256px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                    <circle class="tmx-checkmark-circle tmx-cross" cx="26" cy="26" r="25" fill="none"/>
-                    <path class="tmx-checkmark-cross tmx-checkmark-cross-right" fill="none" d="M16,16 l20,20" />
-                    <path class="tmx-checkmark-cross tmx-checkmark-cross-right" fill="none" d="M16,36 l20,-20" />
-                </svg>`
-
-              check = `
-                <svg class="tmx-checkmark tmx-check" style="width: 256px; height: 256px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                    <circle class="tmx-checkmark-circle tmx-check" cx="26" cy="26" r="25" fill="none"/>
-                    <path class="tmx-checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                </svg>`,
-              containerMainBlockCertificate = document.querySelector('#jsmx-mainBlockCertificate');
-
-
-        window.addEventListener('DOMContentLoaded', function() {
-      
-            containerIcon.innerHTML = success === true ? check : cross;
-            containerMain.classList.remove('tmx-blured');
-
-            let timeout = 2400;
-
-                        setTimeout(function() {
-                if(containerMainBlockCertificate != null) {
-                    const conclusionDate =  containerMainBlockCertificate.querySelector('#jsmx-conclusionDate'),
-                          workload       =  containerMainBlockCertificate.querySelector('#jsmx-workload');
-
-                    containerStudentData.querySelector('#jsmx-workload').textContent = `${workload.textContent}h`;
-
-                    if(conclusionDate != null) {
-                        containerStudentData.querySelector('#jsmx-conclusionDate').textContent = conclusionDate.textContent;
-                        containerStudentData.querySelector('#jsmx-conclusionDate').closest('.uk-grid').hidden = false;
-                    }
-                }
-            }, 200);
-
-            setTimeout(function() {
-                containerIcon.classList.add('uk-animation-fade');
-                containerIcon.classList.add('uk-animation-reverse');
-            }, timeout);
-
-            setTimeout(function() {
-                containerIcon.classList.add('uk-hidden');
-            }, timeout + 350);
-
-            setTimeout(function() {
-                containerResult.classList.remove('uk-hidden');
-                // containerIcon.classList.add('uk-animation-slide-reverse');
-            }, timeout + 750);
-        });
-
-        const subjectsShow = function(element, isMainBlock = false) {
-
-                        if(isMainBlock === true) {
-                return containerMainBlockCertificate.querySelector('#jsmx-buttonSubjectsShow').click();
-            }
-
-            const container = element.parentNode,
-                  subjects  = container.querySelector('#jsmx-containerSubjects').cloneNode(true),
-                  blockName = container.querySelector('#jsmx-blockName').innerHTML;
-
-            subjects.hidden = false;
-
-            return UIkit.modal.alert(`<div><div class="uk-margin-remove-top uk-padding-small" uk-alert>${blockName}</div><h4 class="uk-h4 uk-text-bold uk-margin-medium-top"><span class="uk-margin-small-right uk-text-primary" uk-icon="icon: info;"></span>Lista de disciplinas</h4>${subjects.outerHTML}</div>`, {labels: {ok: 'Fechar'}});
-
-        };
-
-    </script>		</main>
+   		</main>
 
 
 		
-				<script src="https://sre.sistemaresidencia.com.br/public/assets/libs/axios/axios.min.js"></script>
-		<script src="https://sre.sistemaresidencia.com.br/public/assets/js/jsmx_common.min.js"></script>	
-		<script src="https://sre.sistemaresidencia.com.br/public/assets/js/jsmx_adminx.js"></script>
-	
+		
 
 </body>
