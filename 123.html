@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Bilhete PDF</title>
+</head>
+<body>
+    <h1>Gerar Bilhete PDF</h1>
+    <form method="post">
+        <button type="submit" name="gerar_pdf">Gerar PDF</button>
+    </form>
+
+    <?php
+    if (isset($_POST['gerar_pdf'])) {
+        require('fpdf.php');
+
+        class PDF extends FPDF
+        {
+            function Header()
+            {
+                $this->SetFont('Arial', 'B', 12);
+                $this->Cell(0, 10, 'Bilhete Gerado', 0, 1, 'C');
+                $this->Ln(10);
+            }
+
+            function Footer()
+            {
+                $this->SetY(-15);
+                $this->SetFont('Arial', 'I', 8);
+                $this->Cell(0, 10, 'Page ' . $this->PageNo(), 0, 0, 'C');
+            }
+
+            function Bilhete($bilhete)
+            {
+                $this->SetFont('Arial', '', 12);
+                foreach ($bilhete as $numero) {
+                    $this->Cell(0, 10, $numero, 0, 1, 'C');
+                }
+            }
+        }
+
+        function gerarBilhete()
+        {
+            $numerosUnicos = [];
+            while (count($numerosUnicos) < 4) {
+                $numero = rand(1, 9999);
+                $numeroFormatado = str_pad($numero, 4, '0', STR_PAD_LEFT);
+                if (!in_array($numeroFormatado, $numerosUnicos)) {
+                    $numerosUnicos[] = $numeroFormatado;
+                }
+            }
+            return $numerosUnicos;
+        }
+
+        $bilhete = gerarBilhete();
+
+        $pdf = new PDF();
+        $pdf->AddPage();
+        $pdf->Bilhete($bilhete);
+        $pdf->Output('D', 'bilhete.pdf');
+    }
+    ?>
+</body>
+</html>
